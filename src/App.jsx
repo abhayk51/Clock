@@ -1,34 +1,36 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useState, useEffect} from 'react'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [date, setDate] = useState(new Date());
+
+  useEffect(()=>{
+    const intervalId = setInterval(()=>{
+      setDate(new Date());
+    }, 1000)
+
+    return () => clearInterval(intervalId);
+  }, [])
+
+  const convertTwoDigit = (number) => {
+    return number.toLocaleString('en-US',{
+      minimumIntegerDigits: 2
+    })
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Welcome Today 11-12-2024</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div className=''>
+      <h2 className="text-info">A Digital & Analog Clock</h2>
+      <h3>{date.toDateString()} {date.a}</h3>
+      <hr className='border border-1 border-light' />
+      <h1 className="text-warning">
+        {convertTwoDigit(date.getHours())}:
+        {convertTwoDigit(date.getMinutes())}:
+        {convertTwoDigit(date.getSeconds())}&nbsp;
+        {date.getHours()<12?"AM":"PM"}
+      </h1>
+      <hr className='border border-1 border-light' />
+    </div>
   )
 }
 
