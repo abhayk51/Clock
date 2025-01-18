@@ -21,7 +21,7 @@ function App() {
   return (
     <div className=''>
       <h2 className="text-info">A Digital & Analog Clock</h2>
-      <h3>{date.toDateString()} {date.a}</h3>
+      <h3>{date.toDateString()} {date.toTimeString()}</h3>
       <hr className='border border-1 border-light' />
       <h1 className="text-warning">
         {convertTwoDigit(date.getHours())}:
